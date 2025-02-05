@@ -1,0 +1,73 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+}
+
+/* Стили для контейнера регистрации */
+.registry-container {
+    width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Заголовок */
+.registry-container h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* Стили для формы */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Стили для меток */
+label {
+    margin-bottom: 5px;
+    color: #555;
+}
+
+/* Стили для полей ввода */
+input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Стили для кнопки */
+button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Эффект при наведении на кнопку */
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Ссылка на страницу входа */
+.registry-container a {
+    text-align: center;
+    display: block;
+    margin-top: 15px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.registry-container a:hover {
+    text-decoration: underline;
+}
