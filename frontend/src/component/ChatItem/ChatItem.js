@@ -6,7 +6,7 @@ const ChatItem = ({ chat }) => {
   const navigate = useNavigate();
 
   const navigateFun = (e) => {
-    navigate('/Chat', { state: { id: chat.chatId }});
+    navigate('/Chat', { state: { id: chat.chatId, chatName: chat.chatName }});
   }
 
   return (

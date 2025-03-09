@@ -24,8 +24,9 @@ function Login() {
         localStorage.setItem('user', result.data);
         console.log(result);
         document.location.href = 'http://localhost:3000/';
-    });
-  };
+    }).catch((err) => {
+      console.log(err);
+    })};
 
   return (
     <>

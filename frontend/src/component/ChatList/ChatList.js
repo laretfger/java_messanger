@@ -52,8 +52,8 @@ function ChatList() {
         }).catch((error) => {
           if(error.status == 403){
             alert('Redire');
-            // localStorage.setItem('jwt', '');
-            // document.location.href = 'http://localhost:3000/LoginPage';
+            localStorage.setItem('jwt', '');
+            document.location.href = 'http://localhost:3000/LoginPage';
           }
           // result
         })

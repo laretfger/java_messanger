@@ -22,11 +22,4 @@ public class Chat {
     private List<Integer> messagesId;
     private String chatName;
     
-    // @ManyToMany
-    // @JoinTable(
-    //     name = "chat_users",
-    //     joinColumns = @JoinColumn(name = "chat_id"),
-    //     inverseJoinColumns = @JoinColumn(name = "user_id")
-    // )
-    // private Set<String> usersName = new HashSet<>();
 }

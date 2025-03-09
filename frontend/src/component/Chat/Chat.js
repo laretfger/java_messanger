@@ -17,7 +17,7 @@ function Chat() {
 
 
   const headers = {
-    'Authorization': 'Bearer ' + token
+    "Authorization": 'Bearer ' + token
   };
 
   useEffect(() => {
@@ -31,13 +31,13 @@ function Chat() {
       if(!token) {
         document.location.href = 'http://localhost:3000/LoginPage';
       }
-    axios.get(`http://localhost:8080/getMessages/${location.state.id}`, {
+    axios.get(`http://localhost:8080/getMessages${location.state.id}`, {
       headers: {
         "Authorization": 'Bearer ' + token
       }
     }).then((result) => {
-      setChatName(result.data.chatName);
-      setMessages(result.data.data);
+      console.log(result.data);
+      setMessages(result.data);
      }).catch((error) => {
        console.log(error);
        console.log(error.status);
@@ -63,7 +63,13 @@ function Chat() {
 
   const sendMessage = () => {
     if (stompClient && stompClient.connected && currentMessage.trim() !== '') {
-      stompClient.send("/app/send", headers, JSON.stringify({ data: currentMessage, chatId: location.state.id }));
+      stompClient.send("/app/send", {headers}, JSON.stringify({ 
+        headers: headers, 
+        body: {
+          data: currentMessage, 
+          chatId: location.state.id 
+        }
+      }));
       setMessages([...messages, currentMessage]);
       setCurrentMessage('');
     }
@@ -85,7 +91,7 @@ function Chat() {
 
     return (
         <div>
-            <h1>Chat</h1>
+            <h1>{location.state.chatName}</h1>
             {messages.map((message) => (
               <div className="Message" > 
                 {message}
