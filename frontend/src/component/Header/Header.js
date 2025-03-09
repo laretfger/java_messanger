@@ -1,23 +1,23 @@
 import './Header.css';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 
 const Header = () => {
-  const { user, logoutFunc } = useContext(AuthContext);
+  const user = localStorage.getItem('user');
 
   return (
     <header className="App-header">
       <h1>Chat App</h1>
       {user ? (
         <>
-          <button onClick={logoutFunc}>Logout</button>
-          <Link to="/ChatList">Chats</Link>
+          <Link to="/">Chats</Link>
+          <Link to="/Profile" className="link">Профиль</Link>
         </>
       ) : (
         <>
-          <Link to="/LoginPage">Login</Link>
-          <Link to="/RegisterPage">Register</Link>
+          <Link to="/LoginPage" className="link">Вход</Link>
+          <Link to="/RegistrPage" className="link">Регистрация</Link>
         </>
       )}
     </header>

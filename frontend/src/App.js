@@ -4,6 +4,7 @@ import LoginPage from './component/LoginPage/LoginPage.js';
 import RegistrPage from './component/RegistrPage/RegistrPage.js';
 import Chat from './component/Chat/Chat.js';
 import ChatList from './component/ChatList/ChatList.js';
+import Profile from './component/Profile/Profile.js';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<ChatList />} />
         <Route path="/LoginPage" element={<LoginPage />} />
         <Route path="/RegistrPage" element={<RegistrPage />} />
+        <Route path="/Profile" element={<Profile />} />
       </Routes>
     </>
   );

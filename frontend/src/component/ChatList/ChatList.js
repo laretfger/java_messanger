@@ -15,7 +15,6 @@ function ChatList() {
     const token = localStorage.getItem('jwt');
 
     useEffect(() => {
-      alert(token);
       if(!token) {
         document.location.href = 'http://localhost:3000/LoginPage';
       }
@@ -30,7 +29,6 @@ function ChatList() {
           console.log(error);
           console.log(error.status);
 
-            alert('Redire');
             localStorage.setItem('jwt', '');
             document.location.href = 'http://localhost:3000/LoginPage';
         })
@@ -39,7 +37,6 @@ function ChatList() {
     const createChat = (e) => {
       e.preventDefault();
       if (newChatName.trim()) {
-        alert(token);
         const headers = {
           'Authorization': 'Bearer ' + token
         };
@@ -47,11 +44,12 @@ function ChatList() {
           {
             chatName: newChatName
           }, {headers}
-        ).then(() => {
+        ).then((result) => {
           setNewChatName('');
           alert('Чат создан!');
+          setChatIdList([...chatIdList, result.data]);
+          console.log(result.data);
         }).catch((error) => {
-          setNewChatName('');
           if(error.status == 403){
             alert('Redire');
             // localStorage.setItem('jwt', '');

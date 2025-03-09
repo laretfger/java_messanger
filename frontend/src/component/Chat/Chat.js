@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { loginFunc } from '../context/AuthContext.js'
 import { Link, useNavigate, useLocation, Navigate, redirect } from 'react-router-dom';
 import axios from 'axios';
 import SockJS from 'sockjs-client';
@@ -30,18 +31,17 @@ function Chat() {
       if(!token) {
         document.location.href = 'http://localhost:3000/LoginPage';
       }
-    axios.get(`http://localhost:8080/getMessages${location.state.id}`, {
+    axios.get(`http://localhost:8080/getMessages/${location.state.id}`, {
       headers: {
         "Authorization": 'Bearer ' + token
       }
     }).then((result) => {
-      setChatName(result.chatName);
-      setMessages(result.data);
+      setChatName(result.data.chatName);
+      setMessages(result.data.data);
      }).catch((error) => {
        console.log(error);
        console.log(error.status);
       if(error.status == 403){
-        alert('Redire');
         document.location.href = 'http://localhost:3000/LoginPage';
       }
      })
@@ -62,22 +62,26 @@ function Chat() {
 
 
   const sendMessage = () => {
-    if (stompClient && stompClient.connected) {
+    if (stompClient && stompClient.connected && currentMessage.trim() !== '') {
       stompClient.send("/app/send", headers, JSON.stringify({ data: currentMessage, chatId: location.state.id }));
-      console.log('sending');
-
       setMessages([...messages, currentMessage]);
       setCurrentMessage('');
     }
   };
-  const addNewUser = () => {
-      axios.post("http://localhost:8080/addNewUser",
-      {
-        loginNewUser: newUser,
+
+  const addNewUser  = () => {
+    axios.post("http://localhost:8080/addNewUser ", {
+        loginNew: newUser,
         chatId: location.state.id
-      }, headers)
-      setCurrentMessage('');
+    }, { headers })
+    .then(() => {
+        setNewUser ('');
+    })
+    .catch(error => {
+        console.error("Ошибка при добавлении пользователя:", error);
+    });
   };
+
 
     return (
         <div>

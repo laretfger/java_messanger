@@ -33,7 +33,6 @@ public class ServiceAuth {
     private final PasswordEncoder passwordEncoder;
 
     public ResponseEntity<?> registry(CreateUserDto userDto) { 
-        System.out.println("registry");
         if(userDto.getPassword() != null && userDto.getConfirm_password() != null && userDto.getPassword().equals(userDto.getConfirm_password())) {
             System.out.println(serviceUser.findByLogin(userDto.getLogin()).isPresent());
 
@@ -41,15 +40,13 @@ public class ServiceAuth {
                 return new ResponseEntity(new AuthError("Пользователь с таким именем уже существует", HttpStatus.UNAUTHORIZED.value()), HttpStatus.UNAUTHORIZED);
             }
 
-            System.out.println("registry user Dto");
-            System.out.println("new User");
             User user = new User();
             user.setLogin(userDto.getLogin());
-            System.out.println("new User update");
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-            
-            System.out.println(repositoryRole.findByName("ROLE_USER").get());
             user.setRoles(Set.of(repositoryRole.findByName("ROLE_USER").get()));
+            System.out.println(userDto.getEmail() + " " + userDto.getLogin());
+            user.setEmail(userDto.getEmail());
+
 
             System.out.println(user.getRoles());
             serviceUser.createNewUser(user);

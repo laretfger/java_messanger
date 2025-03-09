@@ -4,7 +4,6 @@ import './ChatItem.css';
 
 const ChatItem = ({ chat }) => {
   const navigate = useNavigate();
-  alert('ChatId: ' + chat.chatId);
 
   const navigateFun = (e) => {
     navigate('/Chat', { state: { id: chat.chatId }});

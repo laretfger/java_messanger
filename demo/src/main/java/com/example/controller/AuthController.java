@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dto.CreateUserDto;
 import com.example.dto.GetUserDto;
+import com.example.dto.GetUserInfoDto;
 import com.example.dto.JwtRequest;
 import com.example.entities.User;
 import com.example.service.ServiceAuth;
@@ -23,18 +24,27 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthController {
     
-    private final ServiceUser serviceUser;
-    private final ServiceAuth serviceAuth;
+    private final ServiceUser userService;
+    private final ServiceAuth authService;
 
     @PostMapping("/registry")
     public ResponseEntity<?> registry(@RequestBody CreateUserDto userDto) { 
-        return serviceAuth.registry(userDto);
+        return authService.registry(userDto);
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody JwtRequest request) { 
         System.out.println(request.getLogin() + request.getPassword());
-        return serviceAuth.login(request);
+        return authService.login(request);
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<?> me() { 
+        User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow(() -> new NullPointerException());
+        GetUserInfoDto userInfo = new GetUserInfoDto(user.getEmail(), user.getLogin());
+        System.out.println(user.getEmail() + " " + user.getLogin());
+
+        return ResponseEntity.ok(userInfo);
+        
+    }
 }

@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './RegistrPage.css';
-import { AuthContext } from '../../context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 
 function RegistrPage() {
   const [email, setEmail] = useState('');
@@ -21,11 +21,10 @@ function RegistrPage() {
         email: email
     }
     ).then((result) => {
-        alert(result);
         localStorage.setItem('jwt', result.data.token);
 
         delete result.data.token;
-        loginFunc(result.data);
+        localStorage.setItem('user', result.data);
         document.location.href = 'http://localhost:3000/';
     });
     console.log('Email:', email, 'Password:', password);

@@ -27,21 +27,11 @@ public class User {
     private String password;
     private String email;
     private List<Integer> chatsId = new ArrayList<Integer>();
+
     @ManyToMany
     @JoinTable(name = "users_roles",
                 joinColumns = @JoinColumn(name = "user_id", referencedColumnName="id"),
                 inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName="id")
     )
     private Set<Role> roles = new HashSet<Role>();
-
-    // public User(String login, String password, String email) {
-    //     this.login = login;
-    //     this.password = password;
-    //     this.email = email;
-    //     this.chatsId = chatsId;
-    // }
-
-
-    // @ManyToMany(mappedBy = "users")
-
 }

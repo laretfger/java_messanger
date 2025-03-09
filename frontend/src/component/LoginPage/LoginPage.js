@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useContext } from 'react'; // для управления состоянием формы
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { AuthContext } from '../../context/AuthContext.js';
+import { AuthContext } from '../context/AuthContext.js';
 import './LoginPage.css';
 
 function Login() {
@@ -21,7 +21,7 @@ function Login() {
         localStorage.setItem('jwt', result.data.token);
         console.log(result.data.token);
         delete result.data.token;
-        loginFunc(result.data);
+        localStorage.setItem('user', result.data);
         console.log(result);
         document.location.href = 'http://localhost:3000/';
     });
